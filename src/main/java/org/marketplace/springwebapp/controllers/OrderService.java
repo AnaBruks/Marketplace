@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("marketplace-spring-webapp/order")
+@RequestMapping("/order")
 public class OrderService {
     private final UsersDao usersDao;
 

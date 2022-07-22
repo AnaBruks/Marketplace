@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("marketplace-spring-webapp/products")
+@RequestMapping("/products")
 public class ProductController {
     private final ProductsDao productsDao;
 
@@ -29,7 +29,7 @@ public class ProductController {
         return "products/index";
     }
     @GetMapping("/{id}")
-    public static String showProduct(@PathVariable("id") int id, Model model) {
+    public static String show(@PathVariable("id") int id, Model model) {
         return "products/{id}";
     }
     @GetMapping("/new")

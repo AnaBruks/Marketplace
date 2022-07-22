@@ -1,42 +1,50 @@
 package org.marketplace.springwebapp.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.marketplace.springwebapp.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ProductsDao {
-    private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    public ProductsDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public ProductsDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
+    @Transactional(readOnly = true)
     public List<Product> index() {
-        return jdbcTemplate.query("SELECT * FROM Products", new BeanPropertyRowMapper<>(Product.class));
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Product", Product.class)
+                .getResultList();
     }
-
+    @Transactional
     public void save(Product product) {
-        jdbcTemplate.update("INSERT INTO Products (name, price) VALUES (?,?)", product.getName(), product.getPrice());
+        Session session = sessionFactory.getCurrentSession();
+        session.save(product);
     }
-
+    @Transactional (readOnly = true)
     public Product showProduct(int id) {
-        return (Product) jdbcTemplate.query("SELECT * FROM Products where id=?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Product.class));
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Product.class, id);
     }
 
+    @Transactional
     public void update(int id, Product product) {
-        jdbcTemplate.update("UPDATE Products SET name=? , price =? WHERE id = ?",
-                product.getName(), product.getPrice(), id);
+        Session session = sessionFactory.getCurrentSession();
+        Product oldProduct = session.get(Product.class, id);
+        oldProduct.setName(product.getName());
+        oldProduct.setPrice(product.getPrice());
     }
-
+    @Transactional
     public void destroy(int id) {
-        jdbcTemplate.update("DELETE FROM Products WHERE id = ?", id);
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.get(Product.class, id));
     }
 }

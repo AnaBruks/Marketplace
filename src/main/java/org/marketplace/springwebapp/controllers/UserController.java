@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("marketplace-spring-webapp/users")
+@RequestMapping("/users")
 public class UserController {
     private final UsersDao usersDao;
 

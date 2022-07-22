@@ -16,7 +16,7 @@
     <br/>
     <label for="money">Amount of money:</label>
     <input type="text" th:field="*{money}" id="money" />
-    <div style="color:blue" th:if="${#fields.hasErrors('money')}" th:errors="*{money}">Amount of money should be positive</div>
+    <div style="color:blue" th:if="${#fields.hasErrors('money')}" th:errors="*{money}">Amount of money should be positive or 0</div>
     <br/>
 
     <input type="submit" value="Update!"/>

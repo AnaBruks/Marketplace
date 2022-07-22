@@ -1,20 +1,26 @@
 package org.marketplace.springwebapp.models;
 
 import jakarta.validation.constraints.*;
-import java.math.BigDecimal;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "product")
 public class Product {
 
     @NotBlank(message = "Name should be not empty!")
     @Size(min=2, max=15, message = "The name should not be between 2 and 15 characters")
+    @Column(name = "name")
     private String name;
-
+    @Id
+    @Column (name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Positive (message = "The price should be positive")
-    private BigDecimal price;  // I use BigDecimal bc double is tricky for such operations like 0.1+0.2=0.3000000000000004
+    @Column(name = "price")
+    private double price;
 
 
-    public Product(String name, int id, BigDecimal price) {
+    public Product(String name, int id, double price) {
         this.name = name;
         this.id = id;
         this.price = price;
@@ -36,11 +42,12 @@ public class Product {
         this.id = id;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
+
 }

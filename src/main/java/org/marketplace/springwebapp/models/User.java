@@ -4,21 +4,31 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-import java.math.BigDecimal;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "user")
 public class User {
     @NotBlank(message = "Name and surname should be not empty!")
     @Size(min=2, max=15, message = "The name and surname should not be between 2 and 15 characters")
-    private String name, surname;
+    @Column(name = "name")
+    private String name;
+    @NotBlank(message = "Name and surname should be not empty!")
+    @Size(min=2, max=15, message = "The name and surname should not be between 2 and 15 characters")
+    @Column(name = "surname")
+    private String surname;
+    @Id
+    @Column (name = "id")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
-
     @Positive(message = "Amount of money should be positive")
-    private BigDecimal money; // I use BigDecimal bc double is tricky for such operations like 0.1+0.2=0.3000000000000004
-
+    @Column(name = "money")
+    private double money;
+    @Column(name = "purchases")
     private List<Product> purchases;
 
-    public User(String name, String surname, int id, BigDecimal money, List<Product> purchases) {
+    public User(String name, String surname, int id, double money, List<Product> purchases) {
         this.name = name;
         this.surname = surname;
         this.id = id;
@@ -58,11 +68,11 @@ public class User {
         this.id = id;
     }
 
-    public BigDecimal getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(BigDecimal money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 
