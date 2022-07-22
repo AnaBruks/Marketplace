@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Display all users</title>
+</head>
+<body>
+<div th:each="user : ${users}">
+  <a th: text="${user.getName()"></a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/products">Display all products</a>
+<br/>
+<hr/>
+
+<a href="users/new">Add new user</a>
+</body>
+</html>

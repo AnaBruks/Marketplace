@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add new user</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{users}" th:object="${user}">
+
+  <label for="name">Enter your name:</label>
+  <input type="text" th:field="*{name}" id="name" />
+  <div style="color:blue" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name can't be null</div>
+  <br/>
+
+  <label for="surname">Enter your surname:</label>
+  <input type="text" th:field="*{surname}" id="surname" />
+  <div style="color:blue" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname can't be null</div>
+  <br/>
+
+  <label for="money">Amount of money</label>
+  <input type="text" th:field="*{money}" id="money" />
+  <div style="color:blue" th:if="${#fields.hasErrors('money')}" th:errors="*{money}">Amount of money should be positive</div>
+  <br/>
+
+  <input type="submit" value="Register!"/>
+</form>
+
+</body>
+</html>
