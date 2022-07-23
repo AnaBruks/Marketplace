@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Show product</title>
+</head>
+<body>
+<p>The product is <span th:text="${product.getName()}"></span>.</p>
+<p>The product costs <span th:text="${product.getPrice()}"></span>.</p>
+<p>The next users have bought this product:</p>
+
+<table>
+  <tr>
+    <th>NAME</th>
+    <th>SURNAME</th>
+  </tr>
+  <tr th:each="purchase : ${user.getPurchases()}">
+    <td th:class="${purchase.getName()==product.getName()}? 'user.getName()' : '"></td>
+    <td th:class="${purchase.getName()==product.getName()}? 'user.getSurname()' : '"></td>
+  </tr>
+
+<a th:href="@{/products/{id}/edit (id=${product.getId()})}"></a>
+<input type="button" value="Edit the product"/>
+
+<form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
+  <input type="submit" value="Delete the product"/>
+</form>
+
+</body>
+</html>
