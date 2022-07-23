@@ -1,7 +1,7 @@
 package org.marketplace.springwebapp.Marketplace.controllers;
 
-import org.marketplace.springwebapp.Marketplace.dao.ProductsDao;
 import org.marketplace.springwebapp.Marketplace.models.Product;
+import org.marketplace.springwebapp.Marketplace.dao.ProductsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
